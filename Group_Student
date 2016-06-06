@@ -1,0 +1,716 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Student
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            Group g = new Group();
+            Group b = new Group();
+            bool flag = true;
+            Student st = new Student();
+            string key;
+            g.CountSt = 13;
+            g.NameGr = "Vasya";
+            st.Name = "Andrew";
+            Console.WriteLine(st.Name);
+
+            Console.WriteLine();
+
+            Console.WriteLine("Количество созданых объектов Student : {0}", Student.GetCountOfStudent());
+
+        }
+    }
+
+    struct Date
+    {
+        private int Year;
+        private int month;
+        private int day;
+
+        public Date(int y, int m, int d)
+        {
+            Year = y;
+            month = m;
+            day = d;
+        }
+        public void SetDate(int y, int m, int d)
+        {
+            Year = y;
+            month = m;
+            day = d;
+        }
+         public override string ToString()
+        {
+            return String.Format("{0}-{1}-{2}", Year, month, day);
+        } 
+
+        public static Date GetDate() // статический метод для передачи в конструктор без параметров Student();
+        {
+            return new Date();
+        }
+    }
+
+   class Student
+    {
+        private string surname;
+        private string name;
+        private string lastname;
+        private Date birthday;
+        private string adress;
+        private string phonenum;
+
+        private int[] zachet;
+        private int[] course;
+        private int[] exam;
+
+        private static int studcount; // количество объектов Student;
+        private int count;
+        public Student() : this("","","",Date.GetDate(),"","")
+        { }
+        public Student(string sur, string nam, string lastn, Date birth)
+            : this(sur, nam, lastn, birth, "none", "none")
+        { }
+        public Student(string sur, string nam, string lastn, Date birth, string adr = "none", string phone = "none")
+        {
+            surname = sur;
+            name = nam;
+            lastname = lastn;
+            birthday = birth;
+            adress = adr;
+            phonenum = phone;
+
+            count = 3;
+            zachet = new int[count];
+            course = new int[count];
+            exam = new int[count];
+
+            studcount++; // static member
+        }
+
+        public void SetSur(string sur) { surname = sur; }
+       public string Surname                                              //properties ...
+        {
+            get { return surname; }
+            set { surname = value; }
+        }
+        public void SetName(string nam) { name = nam; }
+       public string Name
+        {
+            get { return name; }
+            set { name = value; }
+        }
+        public void SetLast(string last) { lastname = last; }
+       public string LastName
+        {
+            get { return lastname; }
+            set { lastname = value; }
+        }
+        public void SetDate(Date d) { birthday = d; }
+       public Date Date
+        {
+            get { return birthday; }
+            set { birthday = value; }
+        }
+        public void SetAdress(string a) { adress = a; }
+       public string Adress
+        {
+            get { return adress; }
+            set { adress = value; }
+        }
+        public void SetPhone(string p) { phonenum = p; }
+       public string PhoneNum
+        {
+            get { return phonenum; }
+            set { phonenum = value; }
+        }
+        public void SetZachet(int math , int physics , int programing )
+        {
+            zachet[0] = math;
+            zachet[1] = physics;
+            zachet[2] = programing;
+        }
+
+       public void SetZachet(int[] z)
+        {
+            zachet = z;
+        }
+        public void SetCourse(int network , int cpp , int java )
+        {
+            course[0] = network;
+            course[1] = cpp;
+            course[2] = java;
+        }
+       public void SetCourse(int[] c)
+        {
+            course = c;
+        }
+        public void SetExam(int cisco, int oop, int c)
+        {
+            exam[0] = cisco;
+            exam[1] = oop;
+            exam[2] = c;
+        }
+       public void SetExam(int[] e)
+        {
+            exam = e;
+        }
+
+        public string GetSur() { return surname; }
+        public string GetName() { return name; }
+        public string GetLastName() { return lastname; }
+        public Date GetDate() { return birthday; }
+        public string GetAdress() { return adress; }
+        public string GetPhone() { return phonenum; }
+
+        public int[] GetZachet() 
+        {
+            return zachet;
+            //Console.WriteLine("Math : {0}",zachet[0]);
+            //Console.WriteLine("Physics : {0}",zachet[1]);
+            //Console.WriteLine("Programming : {0}",zachet[2]);
+            
+        }
+        public int[] GetCourse()
+        {
+            return course;
+            //Console.WriteLine("Network : {0}", course[0]);
+            //Console.WriteLine("C++ : {0}", course[1]);
+            //Console.WriteLine("Java : {0}", course[2]);
+        }
+        public int[] GetExam()
+        {
+            return exam;
+            //Console.WriteLine("Cisco : {0}", exam[0]);
+            //Console.WriteLine("OOP : {0}", exam[1]);
+            //Console.WriteLine("C language : {0}", exam[2]);
+        }
+
+       public int GetGPA() // получить средний балл.
+        {
+            int sum = 0;
+           for(int i =0; i < count; i++)
+           {
+               sum += zachet[i];
+               sum += course[i];
+               sum += exam[i];
+           }
+           return sum /= 9;
+        }
+
+        public static int GetCountOfStudent() { return studcount; } // статический метод колич. студентов.
+        public void AllInformation()
+        {
+            Console.WriteLine("\t\tСтудент :");
+            //Console.WriteLine("Фамилия : {0}, Имя : {1}, Отчество : {2}", GetSur(), GetName(), GetLastName());
+            Console.WriteLine("Фамилия : {0}", GetSur());
+            Console.WriteLine("Имя : {0}",GetName());
+            Console.WriteLine("Отчество : {0}", GetLastName());
+            Console.WriteLine("Дата Рождения : {0}", GetDate());
+            Console.WriteLine("Адрес проживания : {0}", GetAdress());
+            Console.WriteLine("Номер телефона : {0}", GetPhone());
+            GetZachet();
+            GetCourse();
+            GetExam();
+        }
+
+
+    }
+}
+///////////////////////////////////////////////////////////////////////////////////////////////////////
+                                                      // class Group
+                                                      namespace Student
+{
+    class RanS
+    {
+        private static string[] surname;
+        private static string[] name;
+        private static string[] lastname;
+        private static Date birthday;
+        private static int[] date;
+        private static string[] adress;
+        private static string[] phonenum;
+        private static Random rand;
+        private static int num;
+
+        static RanS()
+        {
+            surname = new string[] { "Колобков", "Полищук", "Боцуляк", "Ергиев",
+                "Селезнев", "Старостенко", "Когут", "Петросян", "Ляшко","Петручо"};
+            name = new string[] { "Петя", "Вася", "Дима", "Коля", "Людмила",
+                "Андрей", "Александр", "Елена", "Владимир", "Джон" };
+            lastname = new string[]{"Васильевич","Дмитриевич","Александрович","Петрович","Федотов",
+            "Иванович","Вланимирович","Афанасиевич","Максимович","Николаевич"};
+            
+            birthday = new Date();
+            date = new int[3];
+
+            adress = new string[]{"Odessa","Kiev","Paris","Donetsk","London",
+            "Nikolaev","Dnepr","Lviv","Vinnica","Harkov"};
+
+            phonenum = new string[]{"746-51-44","755-34-56","555-343-23","344-65-343","093-455-23-22",
+            "233-434-12","721-54-78","323-23-67","233-434-66","096-65-23-456"};
+
+            rand = new Random();
+
+        }
+        static public string GetSur()
+        {
+            num = rand.Next(10);
+            return surname[num];
+        }
+        static public string GetName()
+        {
+            num = rand.Next(10);
+            return name[num];
+        }
+        static public string GetLast()
+        {
+            num = rand.Next(10);
+            return lastname[num];
+        }
+
+        static public Date GetDate()
+        {
+            for (int i = 0; i < 3; i++)
+            {
+                if (i == 0) { date[i] = rand.Next(1985, 1995); }
+                if (i == 1) { date[i] = rand.Next(1, 12); }
+                if (i == 2) { date[i] = rand.Next(1, 31); }
+            }
+            birthday.SetDate(date[0], date[1], date[2]);
+            return birthday;
+        }
+        static public string GetAdress()
+        {
+            num = rand.Next(10);
+            return adress[num];
+        }
+        static public string GetPhone()
+        {
+            num = rand.Next(10);
+            return phonenum[num];
+        }
+
+        static public int GetValue()
+        {
+            num = rand.Next(1,6);
+            return num;
+        }
+
+        
+    }
+
+    class Group
+    {
+        private Student[] mas;
+        private int countSt;
+        private string nameGr;
+        private string special;
+        private int numCourse;
+        private int[] outstud;
+
+        public Group()
+        {
+            countSt = 10;
+            mas = new Student[countSt];
+            for(int i =0; i < countSt; i++)
+            {
+                mas[i] = new Student(RanS.GetSur(), RanS.GetName(), 
+                    RanS.GetLast(), RanS.GetDate(),RanS.GetAdress(),RanS.GetPhone()); // random params
+            }
+            nameGr = "First group";
+            special = "Informational tehnologies";
+            numCourse = 1;
+            RandGrade();
+        }
+        public Group(int num) 
+        {
+            countSt = num;
+            mas = new Student[countSt];
+            for(int i = 0; i < countSt; i++)
+            {
+                mas[i] = new Student();
+            }
+            nameGr = "First group";
+            special = "Informational tehnologies";
+            numCourse = 1;
+        }
+        public Group(Student[] arr)
+        {
+            mas = arr;
+            countSt = arr.Length;
+            nameGr = "First group";
+            special = "Informational tehnologies";
+            numCourse = 1;
+        }
+        public Group(Group g)   // копирование объекта
+        {
+            if (this == g)
+                return;
+            else
+            {
+                CopyStud(g.GetStudentMas());
+                SetCountSt(g.GetCountSt());
+                SetNameGr(g.GetNameGr());
+                SetCourse(g.GetCourse());
+                SetSpecial(g.GetSpecial());
+            }
+        }
+
+        private void CopyStud(Student[] arr)
+        {
+            countSt = arr.Length;
+            mas = new Student[countSt];
+            for (int i = 0; i < countSt; i++)
+            {
+                mas[i].SetSur(arr[i].GetSur());       // копирование значимых типов
+                mas[i].SetName(arr[i].GetName());
+                mas[i].SetLast(arr[i].GetLastName());
+                mas[i].SetDate(arr[i].GetDate());
+                mas[i].SetAdress(arr[i].GetAdress());
+                mas[i].SetPhone(arr[i].GetPhone());
+
+                mas[i].SetZachet((int[])((arr[i].GetZachet()).Clone())); //копирование массивов
+                mas[i].SetCourse((int[])((arr[i].GetCourse()).Clone()));
+                mas[i].SetExam((int[])((arr[i].GetExam()).Clone()));
+            }
+
+            nameGr = "First group";
+            numCourse = 1;
+        }
+
+        private Student[] GetStudentMas()
+        {
+            return mas;
+        }
+        public Student[] Mas                                  // Properties ....
+        {
+            get
+            {
+                return mas;
+            }
+        }
+
+        public int GetCountSt()
+        {
+            return countSt;
+        }
+        public int CountSt
+        {
+            get
+            {
+                return countSt;
+            }
+            set
+            {
+                countSt = value;
+            }
+        }
+        public string GetNameGr()
+        {
+            return nameGr;
+        }
+
+        public string NameGr
+        {
+            get
+            {
+                return nameGr;
+            }
+            set
+            {
+                nameGr = value;
+            }
+        }
+        public string GetSpecial()
+        {
+            return special;
+        }
+       public string Special
+        {
+           get
+            {
+                return special;
+            }
+           set
+            {
+                special = value;
+            }
+        }
+        public int GetCourse()
+        {
+            return numCourse;
+        }
+        public int NumCourse
+        {
+            get { return numCourse; }
+            set { numCourse = value; }
+        }
+
+        public bool PrintGPAGroup()   
+        {
+            Console.WriteLine("\t\tName group : {0}", nameGr);
+            Console.WriteLine("\tSpecialization : {0}\n", special);
+            Console.WriteLine("Кандидаты на отчисление : ");
+            int count = 0;
+            int num = 0;
+            SortGroup();
+            outstud = new int[countSt];
+            for (int i = 0; i < countSt; i++)
+            {
+                if (mas[i].GetGPA() < 3)
+                {
+                    Console.WriteLine("Student : {0} {1}.", mas[i].GetSur(), mas[i].GetName());
+                    Console.WriteLine("Средний балл студента : {0}", mas[i].GetGPA());
+                    count++;
+                }
+            }
+            outstud = new int[count];
+            for (int i = 0; i < countSt; i++)
+            {
+                if (mas[i].GetGPA() < 3)
+                {
+                    outstud[num] = i;
+                    num++;
+                }
+            }
+            if (count == 0)
+                return false;
+            return true;
+
+        }
+        public void SetCountSt(int c)
+        {
+            countSt = c;
+        }
+        public void SetNameGr(string n)
+        {
+            nameGr = n;
+        }
+        public void SetSpecial(string s)
+        {
+            special = s;
+        }
+        public void SetCourse(int c)
+        {
+            numCourse = c;
+        }
+
+        public void RedactGroup()
+        {
+            Console.WriteLine("Имя группы : ");
+            SetNameGr(Console.ReadLine());
+            Console.WriteLine("Специализация группы : ");
+            SetSpecial(Console.ReadLine());
+            Console.WriteLine("Номер курса : ");
+            SetCourse(Convert.ToInt32(Console.ReadLine()));
+        }
+        private void AddStudentToGroup(Student st)
+        {
+            Student[] mas2 = new Student[countSt + 1];
+            for (int i = 0; i < countSt; i++)
+                mas2[i] = mas[i];
+            mas2[countSt] = st;
+            mas = new Student[countSt + 1];
+            for (int i = 0; i < countSt + 1; i++)
+                mas[i] = mas2[i];
+            countSt++;
+        }
+        public void StudToAnotherGroup(Group g)
+        {
+            Console.WriteLine("Введите индекс студента");
+            int a = Convert.ToInt32(Console.ReadLine());
+            g.AddStudentToGroup(mas[a - 1]);
+            for (int i = a-1; i < countSt - 1;i++ )
+            {
+                mas[i] = mas[i + 1];
+            }
+            countSt--;
+
+        }
+        private void RandGrade()
+        {
+            for(int i =0; i<countSt;i++)
+            {
+                mas[i].SetZachet(RanS.GetValue(), RanS.GetValue(), RanS.GetValue());
+                mas[i].SetCourse(RanS.GetValue(), RanS.GetValue(), RanS.GetValue());
+                mas[i].SetExam(RanS.GetValue(), RanS.GetValue(), RanS.GetValue());
+            }
+        }
+
+        private void SortGroup()
+        {
+           // string min = mas[0].GetSur();
+            Student temp;
+            for(int i = countSt-1; i >= 0; i--)
+            {
+                for(int j = i-1; j >= 0; j--)
+                {
+                    if (String.CompareOrdinal(mas[i].GetSur(), mas[j].GetSur()) < 0)
+                    {
+                        temp = mas[j];
+                        mas[j] = mas[i];
+                        mas[i] = temp;
+                    }
+                    else
+                        continue;
+                }
+            }
+        }
+        public void Del()   // удаление студентов за неуспиваемость
+        {
+            if (!PrintGPAGroup())
+                return;
+            Student[] arr = new Student[countSt - outstud.Length];
+            int j = 0;
+            int c = 0;
+            for(int i =0;i<countSt;i++)
+            {
+                if (j < outstud.Length)
+                {
+                    if (i == outstud[j])
+                    {
+                        j++;
+                        continue;
+                    }
+                }
+                  arr[c] = mas[i];
+                  c++;
+            }
+            mas = new Student[arr.Length];
+            for (int i = 0; i < arr.Length; i++)
+            {
+                mas[i] = arr[i];
+            }
+            countSt = mas.Length;
+        }
+        public void RedactStud()
+        {
+            Console.WriteLine("Введите порядковый номер студента: ");
+            int a = Convert.ToInt32(Console.ReadLine());
+
+            int y, m, d;
+            Console.WriteLine("Фамилия : ");
+            mas[a-1].SetSur(Console.ReadLine());
+            Console.WriteLine("Имя : ");
+            mas[a - 1].SetName(Console.ReadLine());
+            Console.WriteLine("Отчество : ");
+            mas[a - 1].SetLast(Console.ReadLine());
+            Console.Write("Год рождения : ");
+            y = Convert.ToInt32(Console.ReadLine());
+            Console.Write(" месяц : ");
+            m = Convert.ToInt32(Console.ReadLine());
+            Console.WriteLine(" День : ");
+            d = Convert.ToInt32(Console.ReadLine());
+            Console.WriteLine("Адрес : ");
+            mas[a - 1].SetAdress(Console.ReadLine());
+            Console.WriteLine("Номер телефона : ");
+            mas[a - 1].SetPhone(Console.ReadLine());
+            int t1, t2, t3;
+            Console.WriteLine("Зачеты :");
+            Console.WriteLine("Math : ");
+            t1 = Convert.ToInt32(Console.ReadLine());
+            Console.WriteLine("Physics : ");
+            t2 = Convert.ToInt32(Console.ReadLine());
+            Console.WriteLine("Programming : ");
+            t3 = Convert.ToInt32(Console.ReadLine());
+            mas[a - 1].SetZachet(t1, t2, t3);
+
+            Console.WriteLine("Курсовые :");
+            Console.WriteLine("Network : ");
+            t1 = Convert.ToInt32(Console.ReadLine());
+            Console.WriteLine("CPP : ");
+            t2 = Convert.ToInt32(Console.ReadLine());
+            Console.WriteLine("Java : ");
+            t3 = Convert.ToInt32(Console.ReadLine());
+            mas[a - 1].SetCourse(t1, t2, t3);
+
+            Console.WriteLine("Экзамены :");
+            Console.WriteLine("Cisco : ");
+            t1 = Convert.ToInt32(Console.ReadLine());
+            Console.WriteLine("OOP : ");
+            t2 = Convert.ToInt32(Console.ReadLine());
+            Console.WriteLine("C : ");
+            t3 = Convert.ToInt32(Console.ReadLine());
+            mas[a - 1].SetExam(t1, t2, t3);
+        }
+        public void AddStud()
+        {
+            int y, m, d;
+            Student s = new Student();
+            Console.WriteLine("Фамилия : ");
+            s.SetSur(Console.ReadLine());
+            Console.WriteLine("Имя : ");
+            s.SetName(Console.ReadLine());
+            Console.WriteLine("Отчество : ");
+            s.SetLast(Console.ReadLine());
+            Console.Write("Год рождения : ");
+            y = Convert.ToInt32(Console.ReadLine());
+            Console.Write(" месяц : ");
+            m = Convert.ToInt32(Console.ReadLine());
+            Console.WriteLine(" День : ");
+            d = Convert.ToInt32(Console.ReadLine());
+            Console.WriteLine("Адрес : ");
+            s.SetAdress(Console.ReadLine());
+            Console.WriteLine("Номер телефона : ");
+            s.SetPhone(Console.ReadLine());
+            int t1, t2, t3;
+            Console.WriteLine("Зачеты :");
+            Console.WriteLine("Math : ");
+            t1 = Convert.ToInt32(Console.ReadLine());
+            Console.WriteLine("Physics : ");
+            t2 = Convert.ToInt32(Console.ReadLine());
+            Console.WriteLine("Programming : ");
+            t3 = Convert.ToInt32(Console.ReadLine());
+            s.SetZachet(t1, t2, t3);
+
+            Console.WriteLine("Курсовые :");
+            Console.WriteLine("Network : ");
+            t1 = Convert.ToInt32(Console.ReadLine());
+            Console.WriteLine("CPP : ");
+            t2 = Convert.ToInt32(Console.ReadLine());
+            Console.WriteLine("Java : ");
+            t3 = Convert.ToInt32(Console.ReadLine());
+            s.SetCourse(t1, t2, t3);
+
+            Console.WriteLine("Экзамены :");
+            Console.WriteLine("Cisco : ");
+            t1 = Convert.ToInt32(Console.ReadLine());
+            Console.WriteLine("OOP : ");
+            t2 = Convert.ToInt32(Console.ReadLine());
+            Console.WriteLine("C : ");
+            t3 = Convert.ToInt32(Console.ReadLine());
+            s.SetExam(t1, t2, t3);
+
+            Student[]mas2 = new Student[countSt + 1];
+            for (int i = 0; i < countSt; i++)
+                mas2[i] = mas[i];
+            mas2[countSt] = s;
+            mas = new Student[countSt + 1];
+            for (int i = 0; i < countSt + 1; i++)
+                mas[i] = mas2[i];
+            countSt++;
+        }
+        public void Print()
+        {
+            Console.WriteLine("\t\tName group : {0}", nameGr);
+            Console.WriteLine("\tSpecialization : {0}\n", special);
+
+            SortGroup();
+            for(int i =0;i<countSt;i++)
+            {
+                Console.Write("({0}). ", i+1);
+                Console.WriteLine("Student : {0} {1}.", mas[i].GetSur(), mas[i].GetName());
+            }
+        }
+
+
+    }
+}
+
